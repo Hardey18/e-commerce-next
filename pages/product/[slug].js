@@ -10,6 +10,7 @@ import {
   Card,
   Button,
 } from '@material-ui/core';
+import { useRouter } from 'next/router';
 import Layout from '../../components/Layout';
 import useStyles from '../../utils/styles';
 import Product from '../../models/Product';
@@ -19,6 +20,7 @@ import axios from 'axios';
 import { Store } from '../../utils/Store';
 
 export default function ProductScreen(props) {
+  const router = useRouter();
   const { dispatch } = useContext(Store);
   const { product } = props;
   const classes = useStyles();
@@ -32,6 +34,7 @@ export default function ProductScreen(props) {
       return;
     }
     dispatch({ type: 'CART_ADD_ITEM', payload: { ...product, quantity: 1 } });
+    router.push('/cart');
   };
   return (
     <Layout title={product.name} description={product.description}>
