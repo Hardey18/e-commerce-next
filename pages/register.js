@@ -55,10 +55,7 @@ import { useSnackbar } from 'notistack';
         Cookies.set('userInfo', data);
         router.push(redirect || '/');
       } catch (err) {
-        enqueueSnackbar(
-            err.response.data ? err.response.data.message : err.message,
-            { variant: 'error' }
-          );
+        enqueueSnackbar(getError(err), { variant: 'error' });
       }
     };
     return (
