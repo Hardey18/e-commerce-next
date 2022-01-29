@@ -5,18 +5,19 @@ import {
     TextField,
     Button,
     Link,
-  } from '@material-ui/core';
+  } from '@mui/material';
   import NextLink from 'next/link';
   import axios from 'axios';
   import React, { useContext, useEffect } from 'react';
   import Layout from '../components/Layout';
   import { Store } from '../utils/Store';
-  import useStyles from '../utils/styles';
+  // import useStyles from '../utils/styles';
   import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import { Controller, useForm } from 'react-hook-form';
 import { useSnackbar } from 'notistack';
 import { getError } from '../utils/error';
+import Form from '../components/Form';
   
   export default function Login() {
     const {
@@ -36,7 +37,7 @@ import { getError } from '../utils/error';
     }, []);
 //     const [email, setEmail] = useState('');
 //   const [password, setPassword] = useState('');
-  const classes = useStyles();
+  // const classes = useStyles();
   const submitHandler = async ({ email, password }) => {
     closeSnackbar();
     try {
@@ -45,7 +46,7 @@ import { getError } from '../utils/error';
         password,
       });
       dispatch({ type: 'USER_LOGIN', payload: data });
-      Cookies.set('userInfo', data);
+      Cookies.set('userInfo', JSON.stringify(data));
       router.push(redirect || '/');
     } catch (err) {
       enqueueSnackbar(getError(err), { variant: 'error' });
@@ -53,7 +54,7 @@ import { getError } from '../utils/error';
   };
     return (
       <Layout title="Login">
-        <form onSubmit={handleSubmit(submitHandler)} className={classes.form}>
+        <Form onSubmit={handleSubmit(submitHandler)}>
           <Typography component="h1" variant="h1">
             Login
           </Typography>
@@ -128,7 +129,7 @@ import { getError } from '../utils/error';
               </NextLink>
             </ListItem>
           </List>
-        </form>
+          </Form>
       </Layout>
     );
   }

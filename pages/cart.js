@@ -20,7 +20,8 @@ import {
     Card,
     List,
     ListItem,
-} from '@material-ui/core';
+    Box,
+} from '@mui/material';
 import Layout from '../components/Layout';
 import { Store } from '../utils/Store';
 
@@ -51,12 +52,12 @@ function CartScreen() {
         Shopping Cart
       </Typography>
       {cartItems.length === 0 ? (
-        <div>
+        <Box>
         Cart is empty.{' '}
           <NextLink href="/" passHref>
             <Link>Go shopping</Link>
           </NextLink>
-        </div>
+          </Box>
       ) : (
         <Grid container spacing={1}>
           <Grid item md={9} xs={12}>
